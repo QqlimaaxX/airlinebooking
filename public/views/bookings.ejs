@@ -1,0 +1,43 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Bookings</h1>
+</div>
+	<div class='ui container'>
+		<%include messages.ejs%>
+		<div class="ui segments">
+			<%bookings.forEach(function(booking){%>
+				<div class="ui segment black">
+					<div class="ui fluid steps">
+						<div class="ui step">
+							<%=booking.deptcity%>
+						</div>
+						<div class="ui step">
+							<%=booking.arrivalcity%>
+						</div>
+					</div>	
+					<div class="ui equal width grid">
+						<div class="column">
+							<div class="ui label">Booking Id:<%=booking.bid%></div>
+						</div>
+						<div class="column">
+							<div class="ui label">Reserved Seat Numbers:<%=booking.reservedseats%></div>
+						</div>
+						<div class="column">
+							<div class="ui label">Departure Time:<%=booking.departuretime%></div>
+						</div>
+						<div class="column">
+							<div class="ui label">Departure Date:<%=moment(booking.deptdate).format('MMMM Do YYYY')%></div>
+						</div>
+						<div class="column">
+							<div class="ui label">Total Travel Fare:<%=booking.cost%></div>
+						</div>
+						<div class="column">
+							<a href="/bookings/cancel/<%=booking.bid%>" class="ui red button">Cancel Booking</a>
+						</div>
+					</div>	
+				</div>
+			<%});%>
+		</div>
+	</div>
+<%include footer.ejs %>
+

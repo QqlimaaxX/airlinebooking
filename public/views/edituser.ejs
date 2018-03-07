@@ -1,0 +1,35 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>User</h1>
+</div>
+	<form method="POST" class='ui container form'>
+		<% include messages.ejs%>
+		<div class="field">
+			<label>Id</label>
+			<input type="number" name="id" value="<%=user.id%>" readonly>
+		</div>
+		<div class="equal width fields">
+			<div class="field">
+				<label>Username</label>
+				<input type="text" name="username" autofocus required placeholder="Username" value="<%=user.username%>">
+			</div>
+			<div class="field">
+				<label>Password</label>
+				<input type="text" name="password" required placeholder="Password" value="<%=user.password%>">
+			</div>
+		</div>
+		<div class="equal width fields">
+			<div class="field">
+				<label>Email</label>
+				<input type="email" name="email" required placeholder="Email" value='<%=user.email%>'>
+			</div>
+			<div class="field">
+			<label>Phone Number</label>
+			<input type="tel" name="number" pattern="[0-9]{10}" title="Enter Valid Number" required placeholder="Phone Number" value="<%=user.number%>">
+		</div>
+		</div>
+		<button class="ui button blue">Edit</button>
+		<a class="ui button red" href="/admin/users">Back</a>
+	</form>
+<%include footer.ejs%>
+

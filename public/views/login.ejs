@@ -1,0 +1,18 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Login</h1>
+</div>
+	<form method="POST" class='ui container form'>
+		<%include messages.ejs%>
+		<div class="field">
+			<label>Username</label>
+			<input type="text" name="username" autofocus placeholder="Username">
+		</div>
+		<div class="field">
+			<label>Password</label>
+			<input type="password" name="password" placeholder="password">
+		</div>
+		<button class="ui button">Login</button>
+	</form>
+<%include footer.ejs %>
+

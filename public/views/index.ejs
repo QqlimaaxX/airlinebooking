@@ -1,0 +1,118 @@
+<%include header.ejs%>
+	<div class="ui container inverted segment">
+		<h1>SRM Airlines</h1>
+	</div>
+	<div class="ui container segment" id="app">
+		<%include messages.ejs%>
+		<h2>Book your flight</h2>
+		<form method="POST" class="ui horizontal segments">
+			<div class="ui segment input blue">
+				<select name="deptcity" v-model:value="from">
+					<option value="" selected disabled hidden>From</option>
+					<%cities.forEach(function(city){%>
+						<option value="<%=city%>"><%=city%></option>
+					<%});%>
+				</select>
+			</div>
+			<div class="ui input segment red">
+				<select name="arrivalcity" v-model:value="to">
+					<option value="" selected disabled hidden>To</option>
+					<%cities.forEach(function(city){%>
+						<option value="<%=city%>"><%=city%></option>
+					<%});%>
+				</select>
+			</div>
+			<div class="ui input segment yellow">
+				<input type="date" name="deptdate" placeholder="Travel Date">
+			</div>
+			<div class="ui input segment orange">
+				<input type="number" required value="1" name="passengers" placeholder="Number of passengers" pattern=[0-9]{1} min="1">
+			</div>
+			<button :disabled="empty||same" class="ui green inverted button segment">
+				Search
+			</button>
+		</form>
+	</div>
+	<div class="ui segment container">
+		<div class="ui blue huge ribbon label">
+			Flights
+			<i class="plane icon"></i>
+		</div>
+		<br>
+			<%if (flights.length==0){%>
+				<div class="ui error fluid message">
+					No Flights found.
+				</div>
+			<%}%>
+		<br>
+		<div class="ui stackable grid container">
+			<%flights.forEach(function(flight){%>
+				<div class="ui four wide column">
+					<div class="ui center aligned segment">
+						<div class="ui tiny steps">
+							<div class="step">
+								<%var d=moment(flight.departuretime,"hh:mm:ss")%>
+								<div class="content">
+									<%=d.format('hh:mm A')%>
+									<br>
+									<%=flight.deptcity%>
+								</div>
+							</div>
+							<div class="step">
+								<div class="content">
+									<%=d.add(flight.duration,'m').format('hh:mm A')%>
+									<br>
+									<%=flight.arrivalcity%>
+								</div>
+							</div>
+						</div>
+						<div class="content center aligned">
+							<div class="ui circular huge label">
+								<%=moment(flight.deptdate).format("MMMM Do YYYY")%>
+							</div>
+							<br>
+							<br>
+							<div class="ui circular large label">
+								<i class="users icon"></i>Seats:<%=flight.seats%>
+							</div>
+							<br>
+							<br>
+							<div class="ui circular large label">
+								<i class="wait icon"></i>
+								Duration:<%=flight.duration/60%> hours
+							</div>
+							<br>
+							<br>
+							<div class="ui circular large label">
+								<i class="rupee icon"></i>
+								Cost:<%=flight.cost%>
+							</div>
+							<br>
+							<br>
+							<a href="/book/<%=flight.fsid%>/<%=passengers%>" class="ui green fluid circular button">
+								Book
+							</a>
+						</div>
+					</div>
+				</div>
+			<%});%>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	  	from:"",
+	  	to:""
+	  },
+	  computed:{
+	  	same:function(){
+	  		return (this.from===this.to);
+	  	},
+	  	empty:function(){
+	  		return (this.from=="" || this.to=="");
+	  	}
+	  }
+	})
+	</script>
+<%include footer.ejs%>

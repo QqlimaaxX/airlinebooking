@@ -1,0 +1,43 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Admin Control Panel</h1>
+</div>
+<div class="ui container">
+	<%include messages.ejs%>
+	<div class="ui three item pointing menu">
+		<a class="item active" href="/admin/users">Users</a>
+		<a class="item" href="/admin/flights">Flights</a>
+		<a class="item" href="/admin/bookings">Bookings</a>
+	</div>
+	<a href="/admin/users/new" class="ui button">Add New User</a>
+	<table class="ui selectable padded table">
+	  <thead>
+	    <tr>
+	    <th>id</th>
+	    <th>username</th>
+	    <th>password</th>
+	    <th>email</th>
+	    <th>number</th>
+	    <th>Actions</th>
+	  	</tr>
+	  </thead>
+	  <tbody>
+	  	<%rows.forEach(function(row){%>
+	  		<tr>
+				<td><%=row.id%></td>
+				<td><%=row.username%></td>
+				<td><%=row.password%></td>
+				<td><%=row.email%></td>
+				<td><%=row.number%></td>
+				<td>
+					<a href="/admin/users/edit/<%=row.username%>" class="ui button blue">Edit</a>
+					<a href="/admin/users/delete/<%=row.id%>" class="ui button red">Delete</a>
+				</td>
+	  		</tr>
+	  	<%});%>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+<%include footer.ejs %>
+

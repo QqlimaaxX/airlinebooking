@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SRM Airlines</title>
+	<link rel="stylesheet" href="/css/semantic.css">
+	<script src="/vue.js"></script>
+</head>
+<body>
+	<div class="ui stackable inverted borderless menu">
+		<div class="ui container">
+			<a class="header item" href="/">
+				SRM Airlines
+			</a>
+			<div class="right menu">
+				<% if (typeof isLoggedin != "undefined"){ %>
+				<a class="item" href="/bookings">
+					Bookings
+				</a>
+				<a class="item" href="/user">
+					User
+				</a>
+				<a class="item" href="/logout">
+					Logout
+				</a>
+				<% }else{ %>
+				<a class="item" href="/login">
+					Login
+				</a>
+				<a class="item" href="/register">
+					Register
+				</a>
+				<% }%>
+			</div>
+		</div>
+	</div>

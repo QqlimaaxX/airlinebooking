@@ -1,0 +1,52 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Register</h1>
+</div>
+	<form method="POST" class='ui container form'>
+		<%include messages.ejs%>
+		<div id="app">
+			<div class="field">
+				<label>Username</label>
+				<input type="text" name="username" autofocus required placeholder="Username">
+			</div>
+
+			<div class="equal width fields">
+				<div class="field">
+					<label>Password</label>
+					<input type="password" name="password" required placeholder="password" v-model:value="password1">
+				</div>
+				<div class="field">
+					<label>Confirm Password</label>
+					<input type="password" name="cpassword" required placeholder="password" v-model:value="password2">
+				</div>
+			</div>
+			
+			<div class="equal width fields">
+				<div class="field">
+					<label>Email</label>
+					<input type="email" name="email" required placeholder="Email">
+				</div>
+				<div class="field">
+					<label>Phone Number</label>
+					<input type="tel" name="number" pattern="[0-9]{10}" title="Enter Valid Number" required placeholder="Phone Number">
+				</div>
+			</div>
+			<button :disabled="!checkPasswords" class="ui button blue">Register</button>
+		</div>
+	</form>
+	<script type="text/javascript">
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	  	password1:"",
+	  	password2:""
+	  },
+	  computed:{
+	  	checkPasswords:function(){
+	  		return this.password1===this.password2;
+	  	}
+	  }
+	})
+	</script>
+<%include footer.ejs %>
+

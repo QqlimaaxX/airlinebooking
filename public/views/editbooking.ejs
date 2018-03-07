@@ -1,0 +1,19 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Edit Booking</h1>
+</div>
+	<form method="POST" class='ui container form'>
+		<%include messages.ejs%>
+			<div class="field">
+				<label>fsid</label>
+				<input type="number" name="fsid" required placeholder="fsid" value="<%=booking.fsid%>">
+			</div>
+			<div class="field">
+				<label>Reserved Seats (seperated by commas)</label>
+				<input type="text" name="reservedseats" required placeholder="Reserved Seats" value="<%=booking.reservedseats%>">
+			</div>
+			<button class="ui button blue">Update</button>
+			<a class="ui button red" href="/admin/bookings">Back</a>
+	</form>
+<%include footer.ejs %>
+

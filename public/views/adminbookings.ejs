@@ -1,0 +1,47 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Admin Control Panel</h1>
+</div>
+<div class="ui container">
+	<%include messages.ejs%>
+	<div class="ui three item pointing menu">
+		<a class="item" href="/admin/users">Users</a>
+		<a class="item" href="/admin/flights">Flights</a>
+		<a class="item active" href="/admin/bookings">Bookings</a>
+	</div>
+	<a href="/admin/flights/new" class="ui button">Add New Boking</a>
+	<table class="ui selectable padded table">
+	  <thead>
+	    <tr>
+	    <th>bid</th>
+	    <th>userid</th>
+	    <th>username</th>
+	    <th>deptcity</th>
+        <th>arrivalcity</th>
+	    <th>fsid</th>
+	    <th>resrevedseats</th>
+	    <th>Actions</th>
+	  	</tr>
+	  </thead>
+	  <tbody>
+	  	<%bookings.forEach(function(booking){%>
+	  		<tr>
+				<td><%=booking.bid%></td>
+				<td><%=booking.userid%></td>
+				<td><%=booking.username%></td>
+				<td><%=booking.deptcity%></td>
+				<td><%=booking.arrivalcity%></td>
+				<td><%=booking.fsid%></td>
+				<td><%=booking.reservedseats%></td>
+				<td>
+					<a href="/admin/bookings/edit/<%=booking.bid%>" class="ui button blue">Edit</a>
+					<a href="/admin/bookings/delete/<%=booking.bid%>" class="ui button red">Delete</a>
+				</td>
+	  		</tr>
+	  	<%});%>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+<%include footer.ejs %>
+

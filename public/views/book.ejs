@@ -1,0 +1,106 @@
+<% include header.ejs%>
+	<div class="ui container inverted segment">
+		<h1>Book your flight</h1>
+	</div>
+	<div class="ui container segment" id="app">
+		<%include messages.ejs%>
+		<form method="POST" class="ui grid">
+			<div class="sixteen wide column">
+				<div class="ui container">
+					<div class="ui centered header">
+						<%=moment(flight.deptdate).format("MMMM Do YYYY")%>
+					</div>
+					<%var d=moment(flight.departuretime,"hh:mm:ss")%>
+					<div class="ui fluid steps">
+						<div class="step">
+							<%=flight.deptcity%>
+							<br>
+							<br>
+							<%=d.format('hh:mm A')%>
+						</div>
+						<div class="step">
+							<%=flight.arrivalcity%>
+							<br>
+							<br>
+							<%=d.add(flight.duration,'m').format('hh:mm A')%>
+						</div>
+					</div>
+					<p>
+						<span class="ui label">
+							Flight Duration:
+						</span>
+						<%=flight.duration/60%> hours
+					</p>
+					<p>
+						<span class="ui label">
+							Seats:
+						</span>
+						<%=flight.seats%>
+					</p>
+				</div>
+			</div>
+			<h3>Select {{maxSeats}} seats</h3>
+			<div class="centered row">
+				<div class="four wide column">
+					<div class="ui checkbox" v-for="seat in parseInt(seats/2)">
+					  <input type="checkbox" :disabled="reservedseats.includes(seat)" :value="seat" name="seats" @click="handleClick(seat,$event)">
+					  <label></label>
+					</div>
+				</div>
+				<div class="four wide column">
+					<div class="ui checkbox" v-if="seat>seats/2" v-for="seat in seats">
+					  <input type="checkbox" :disabled="reservedseats.includes(seat)" :value="seat" name="seats" @click="handleClick(seat,$event)">
+					  <label></label>
+					</div>
+				</div>
+			</div>
+			<div class="centered row">
+				<div class="column">
+					<div class="ui center aligned container">
+					<h2>Cost</h2>
+					<i class="rupee icon"></i>{{totalCost}}
+					<div class="ui positive message" v-if="selectedSeats==maxSeats">{{maxSeats}} seats selected</div>
+					<br>
+					<br>
+					<button :disabled="selectedSeats!=maxSeats" class="ui button">Book</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script>
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	  	seats:<%=flight.seats%>,
+	  	selectedSeats:0,
+	  	maxSeats:<%=passengers%>,
+	  	reservedseats:null
+	  },
+	  computed:{
+	  	totalCost:function(){
+	  		return this.selectedSeats*<%=flight.cost%>;
+	  	}
+	  },methods:{
+	  	handleClick:function(seatNumber,event){
+	  		if(event.target.checked){
+	  			this.selectedSeats++;
+	  		}else{
+	  			this.selectedSeats--;
+	  		}
+	  		if(this.selectedSeats>this.maxSeats){
+	  			alert(this.maxSeats+" selected already!");
+	  			this.selectedSeats--;
+	  			event.target.checked=false;
+	  		}
+	  		console.log(event.target.value);
+	  	}
+	  },created:function(){
+	  	this.reservedseats = '<%=reservedseats%>';
+	  	this.reservedseats = this.reservedseats.split(",").map(function(n){return parseInt(n)});
+	  	this.reservedseats.splice(0,1);
+	  	console.log(this.reservedseats);
+	  }
+	})
+	</script>
+<%include footer.ejs%>

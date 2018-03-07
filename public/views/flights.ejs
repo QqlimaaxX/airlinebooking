@@ -1,0 +1,49 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Admin Control Panel</h1>
+</div>
+<div class="ui container">
+	<%include messages.ejs%>
+	<div class="ui three item pointing menu">
+		<a class="item" href="/admin/users">Users</a>
+		<a class="item active" href="/admin/flights">Flights</a>
+		<a class="item" href="/admin/bookings">Bookings</a>
+	</div>
+	<a href="/admin/flights/new" class="ui button">Add New Flight</a>
+	<table class="ui selectable padded table">
+	  <thead>
+	    <tr>
+	    <th>fid</th>
+	    <th>deptcity</th>
+	    <th>arrivalcity</th>
+	    <th>seats</th>
+	    <th>intervaldays</th>
+	    <th>departuretime</th>
+	    <th>duration(mins)</th>
+	    <th>cost</th>
+	    <th>Actions</th>
+	  	</tr>
+	  </thead>
+	  <tbody>
+	  	<%rows.forEach(function(row){%>
+	  		<tr>
+				<td><%=row.fid%></td>
+				<td><%=row.deptcity%></td>
+				<td><%=row.arrivalcity%></td>
+				<td><%=row.seats%></td>
+				<td><%=row.intervaldays%></td>
+				<td><%=row.departuretime%></td>
+				<td><%=row.duration%></td>
+				<td><%=row.cost%></td>
+				<td>
+					<a href="/admin/flights/edit/<%=row.fid%>" class="ui button blue">Edit</a>
+					<a href="/admin/flights/delete/<%=row.fid%>" class="ui button red">Delete</a>
+				</td>
+	  		</tr>
+	  	<%});%>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+<%include footer.ejs %>
+

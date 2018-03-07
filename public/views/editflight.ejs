@@ -1,0 +1,47 @@
+<%include header.ejs%>
+<div class="ui container inverted segment">
+	<h1>Edit Flight</h1>
+</div>
+	<form method="POST" class='ui container form'>
+		<%include messages.ejs%>
+			<div class="equal width fields">
+				<div class="field">
+					<label>Departure City</label>
+					<input type="text" name="deptcity" autofocus required placeholder="Departure City" value="<%=flight.deptcity%>">
+				</div>
+				<div class="field">
+					<label>Arrival City</label>
+					<input type="text" name="arrivalcity" required placeholder="Arrival City" value="<%=flight.arrivalcity%>">
+				</div>
+			</div>
+			<div class="equal width fields">
+				<div class="field">
+					<label>Seats</label>
+					<input type="number" name="seats" min="50" required placeholder="Seats" value="<%=flight.seats%>">
+				</div>
+				<div class="field">
+					<label>Interval Days</label>
+					<input type="number" name="intervaldays" required placeholder="Interval Days" min="1" step="1" value="<%=flight.intervaldays%>">
+				</div>
+			</div>
+			<div class="equal width fields">
+				<div class="field">
+					<label>Departure Time</label>
+					<input type="time" name="departuretime" required placeholder="Departure Time" value="<%=flight.departuretime%>">
+				</div>
+
+				<div class="field">
+					<label>Duration (mins)</label>
+					<input type="number" name="duration" required placeholder="Duration" value="<%=flight.duration%>">
+				</div>
+
+				<div class="field">
+					<label>Cost</label>
+					<input type="number" name="cost" required placeholder="Cost" value="<%=flight.cost%>">
+				</div>
+			</div>
+			<button class="ui button blue">Update</button>
+			<a class="ui button red" href="/admin/flights">Back</a>
+	</form>
+<%include footer.ejs %>
+
